@@ -1,5 +1,7 @@
 # docker-registry-with-auth
 
+Run docker registry with cesanta/docker_auth. (demo)
+
 ## How to use
 
 ```
