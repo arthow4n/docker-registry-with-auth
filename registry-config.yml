@@ -1,0 +1,24 @@
+version: 0.1
+log:
+  fields:
+    service: registry
+storage:
+  cache:
+    blobdescriptor: inmemory
+  filesystem:
+    rootdirectory: /var/lib/registry
+http:
+  addr: :5000
+  headers:
+    X-Content-Type-Options: [nosniff]
+auth:
+  token:
+    realm: "https://example.com:5001/auth"
+    service: "example.com:5000"
+    issuer: "ACME example.com"
+    rootcertbundle: "/certs/auth-cert.pem"
+health:
+  storagedriver:
+    enabled: true
+    interval: 10s
+    threshold: 3

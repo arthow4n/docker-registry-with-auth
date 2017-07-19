@@ -1,0 +1,33 @@
+server:
+  addr: ":5001"
+  path_prefix: ""
+  real_ip_pos: -2
+
+token:
+  issuer: "ISSUER_NAME"
+  expiration: 900
+  certificate: "/certs/auth-cert.pem"
+  key: "/certs/auth-key.pem"
+
+# users:
+#   # Password is specified as a BCrypt hash. Use htpasswd -B to generate.
+#   "admin":
+#     password: "$2y$05$LO.vzwpWC5LZGqThvEfznu8qhb5SGqvBSWY1J3yZ4AxtMRZ3kN5jC"  # badmin
+#   "test":
+#     password: "$2y$05$WuwBasGDAgr.QCbGIjKJaep4dhxeai9gNZdmBnQXqpKly57oNutya"  # 123
+
+# google_auth:
+#  domain: "example.com"
+#  client_id: "12345678-example.apps.googleusercontent.com"
+#  client_secret: "12345678abcdefg"
+#  token_db: "/google_auth_token.db"
+#  http_timeout: 10
+
+acl:
+  - match: {account: "admin"}
+    actions: ["*"]
+    comment: "Admin has full access to everything."
+  - match: {account: "/.+/"}
+    actions: ["pull"]
+    comment: "Logged in users can pull all images."
+  # Access is denied by default.

@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+  nginx:
+    image: nginx
+    ports:
+      - 5000:5000
+      - 5001:5001
+    volumes:
+      - ./docker-nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./certs/dhparam.pem:/certs/dhparam.pem:ro
+      - /path/to/letsencrypt/fullchain.pem:/certs/fullchain.pem:ro
+      - /path/to/letsencrypt/privkey.pem:/certs/privkey.pem:ro
+
+  registry:
+    image: registry:2
+    volumes:
+      - ./certs/auth-cert.pem:/certs/auth-cert.pem:ro
+      - ./registry-config.yml:/registry-config.yml:ro
+    command:
+      - /registry-config.yml
+
+  docker-auth:
+    image: cesanta/docker_auth:1
+    volumes:
+      - ./registry-auth-config.yml:/auth-config.yml:ro
+      - ./certs/auth-cert.pem:/certs/auth-cert.pem:ro
+      - ./certs/auth-key.pem:/certs/auth-key.pem:ro
+    command:
+      #- '-v'
+      #- '2'
+      - '-logtostderr'
+      - /auth-config.yml
