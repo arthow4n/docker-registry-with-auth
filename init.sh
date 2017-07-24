@@ -6,7 +6,8 @@ cd "$(readlink -f "$(dirname "$0")")"
 if [[ -d "./certs" ]]; then
   echo "Directory './certs' found, skip generating."
 else
-  openssl req -newkey rsa:2048 -nodes -keyout ./certs/auth-key.pem -x509 -days 365 -out ./certs/auth-cert.pem
+  mkdir -p "./certs"
+  openssl req -newkey rsa:2048 -nodes -subj '/CN=mydockerregistry.example.com/O=My Docker Registry/C=TW' -x509 -days 365 -keyout "./certs/auth-key.pem" -out "./certs/auth-cert.pem"
   openssl dhparam -out ./certs/dhparam.pem 2048
   echo "Generated './certs'."
 fi
