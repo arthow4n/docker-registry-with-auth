@@ -4,7 +4,7 @@ server:
   real_ip_pos: -2
 
 token:
-  issuer: "ISSUER_NAME"
+  issuer: "ACME example.com"
   expiration: 900
   certificate: "/certs/auth-cert.pem"
   key: "/certs/auth-key.pem"

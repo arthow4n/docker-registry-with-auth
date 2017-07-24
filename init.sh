@@ -16,8 +16,12 @@ if grep /path/to/letsencrypt docker-compose.yml 2>&1 >/dev/null; then
   echo "Replace cert path in './docker-compose.yml => services => nginx => volumes' before running."
 fi
 
-if grep example.com *.yml | grep -v 'domain: '; then
+if grep example.com registry-config.yml | grep -v 'domain: '; then
   echo "Replace 'example.com' with your domain name in 'registry-config.yml => auth'."
+fi
+
+if grep example.com registry-auth-config.yml | grep -v 'domain: '; then
+  echo "Replace 'example.com' with your domain name in 'registry-auth-config.yml => token => issuer'."
 fi
 
 if grep '^#' registry-auth-config.yml; then
